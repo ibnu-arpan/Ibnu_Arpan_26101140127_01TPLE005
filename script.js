@@ -1144,3 +1144,44 @@ document.addEventListener("DOMContentLoaded", () => {
     currentYearSpan.textContent = new Date().getFullYear();
   }
 });
+const cosmicAudio = document.getElementById("bg-cosmic-audio");
+const soundToggleBtn = document.getElementById("sound-toggle-btn");
+const soundIcon = document.getElementById("sound-icon");
+let isMusicPlaying = false;
+
+// Atur volume awal (30% agar nyaman didengar)
+cosmicAudio.volume = 0.3;
+
+// Fungsi klik pada tombol Kosmik Audio bawaan
+soundToggleBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if (isMusicPlaying) {
+    cosmicAudio.pause();
+    soundIcon.className = "fa-solid fa-volume-xmark"; // Ikon mute
+    soundToggleBtn.classList.remove("active");
+    isMusicPlaying = false;
+  } else {
+    cosmicAudio.play();
+    soundIcon.className = "fa-solid fa-volume-high"; // Ikon suara aktif
+    soundToggleBtn.classList.add("active");
+    isMusicPlaying = true;
+  }
+});
+
+// Opsional: Otomatis menyala saat pengunjung mengklik area mana pun pertama kali
+document.body.addEventListener(
+  "click",
+  () => {
+    if (!isMusicPlaying) {
+      cosmicAudio
+        .play()
+        .then(() => {
+          soundIcon.className = "fa-solid fa-volume-high";
+          soundToggleBtn.classList.add("active");
+          isMusicPlaying = true;
+        })
+        .catch(() => {});
+    }
+  },
+  { once: true },
+);
