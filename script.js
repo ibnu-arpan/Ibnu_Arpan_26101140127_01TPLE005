@@ -514,7 +514,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Rotating titles as specifically requested by user ("seperti 'Amatir Developer', dll.")
   const roles = [
-    "Mahasiswa Universitas Pamulang",
+    "Mahasiswa UNPAM",
     "Teknik Informatika",
     "Amatir Developer",
     "Network Engineer",
