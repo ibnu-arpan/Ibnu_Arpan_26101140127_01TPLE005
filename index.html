@@ -1,1239 +1,1010 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ibnu | Personal Portfolio - Galaxy & Black Hole Edition</title>
-    <meta
-      name="description"
-      content="Portofolio personal Ibnu - Amatir Developer dengan keahlian web development, animasi interaktif, dan eksplorasi teknologi modern dalam tema Dark Mode Galaxy & Black Hole."
-    />
-    <meta
-      name="keywords"
-      content="Ibnu, Portfolio, Web Developer, Frontend Developer, Amatir Developer, JavaScript, HTML, CSS, Galaxy, Black Hole"
-    />
-    <meta name="author" content="Ibnu" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ibnu | Personal Portfolio - Galaxy & Black Hole Edition</title>
+  <meta name="description"
+    content="Portofolio personal Ibnu - Amatir Developer dengan keahlian web development, animasi interaktif, dan eksplorasi teknologi modern dalam tema Dark Mode Galaxy & Black Hole." />
+  <meta name="keywords"
+    content="Ibnu, Portfolio, Web Developer, Frontend Developer, Amatir Developer, JavaScript, HTML, CSS, Galaxy, Black Hole" />
+  <meta name="author" content="Ibnu" />
 
-    <!-- Font Awesome Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
+    rel="stylesheet" />
 
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- Canvas Background for Galaxy & Black Hole Simulation -->
-    <canvas id="cosmic-canvas" aria-hidden="true"></canvas>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Ambient Sound & Cosmic Controls (Bottom Left Floating) -->
-    <div class="cosmic-quick-controls" id="cosmic-quick-controls">
-      <!-- File Audio Backsound -->
-<audio id="bg-cosmic-audio" loop>
-  <source src="backsound.mp3" type="audio/mpeg">
-</audio>
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-      <button
-        class="cosmic-ctrl-btn"
-        id="sound-toggle-btn"
-        title="Nyalakan/Matikan Audio Suasana Luar Angkasa"
-      >
-        <i class="fa-solid fa-volume-xmark" id="sound-icon"></i>
-        <span class="ctrl-tooltip">Kosmik Audio</span>
+<body>
+  <!-- Canvas Background for Galaxy & Black Hole Simulation -->
+  <canvas id="cosmic-canvas" aria-hidden="true"></canvas>
+
+  <!-- Ambient Sound & Cosmic Controls (Bottom Left Floating) -->
+  <div class="cosmic-quick-controls" id="cosmic-quick-controls">
+    <!-- File Audio Backsound -->
+    <audio id="bg-cosmic-audio" loop>
+      <source src="backsound.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="cosmic-ctrl-btn" id="sound-toggle-btn" title="Nyalakan/Matikan Audio Suasana Luar Angkasa">
+      <i class="fa-solid fa-volume-xmark" id="sound-icon"></i>
+      <span class="ctrl-tooltip">Kosmik Audio</span>
+    </button>
+    <button class="cosmic-ctrl-btn" id="warp-toggle-btn" title="Mode Kecepatan Cahaya / Warp Speed">
+      <i class="fa-solid fa-bolt" id="warp-icon"></i>
+      <span class="ctrl-tooltip">Warp Speed</span>
+    </button>
+  </div>
+
+  <!-- FLOATING NAVBAR (Melayang di Tengah Atas dengan Efek Oren Menyala) -->
+  <header class="navbar-wrapper">
+    <nav class="floating-navbar" id="main-navbar">
+      <!-- Glow Aura Behind Navbar -->
+      <div class="navbar-accretion-glow" aria-hidden="true"></div>
+
+      <!-- Brand / Logo -->
+      <a href="#beranda" class="nav-brand">
+        <span class="brand-singularity"></span>
+        <span class="brand-text">IBNU<span class="brand-dot"> </span>ARPAN</span>
+      </a>
+
+      <!-- Desktop Navigation Menu Items -->
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item">
+          <a href="#beranda" class="nav-link active">
+            <i class="fa-solid fa-house-chimney nav-icon"></i>
+            <span>Beranda</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#tentang" class="nav-link">
+            <i class="fa-solid fa-user-astronaut nav-icon"></i>
+            <span>Tentang</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#pendidikan" class="nav-link">
+            <i class="fa-solid fa-graduation-cap nav-icon"></i>
+            <span>Pendidikan</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#keahlian" class="nav-link">
+            <i class="fa-solid fa-microchip nav-icon"></i>
+            <span>Keahlian</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#kontak" class="nav-link">
+            <i class="fa-solid fa-paper-plane nav-icon"></i>
+            <span>Kontak</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Action Button / CTA -->
+      <a href="#kontak" class="nav-cta-btn">
+        <span>Hubungi</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+
+      <!-- Mobile Hamburger Toggle Button -->
+      <button class="nav-mobile-toggle" id="mobile-toggle" aria-label="Buka Menu Navigasi">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
       </button>
-      <button
-        class="cosmic-ctrl-btn"
-        id="warp-toggle-btn"
-        title="Mode Kecepatan Cahaya / Warp Speed"
-      >
-        <i class="fa-solid fa-bolt" id="warp-icon"></i>
-        <span class="ctrl-tooltip">Warp Speed</span>
-      </button>
+    </nav>
+
+    <!-- Mobile Dropdown Menu -->
+    <div class="mobile-dropdown-menu" id="mobile-dropdown">
+      <ul class="mobile-links">
+        <li>
+          <a href="#beranda" class="mobile-link active"><i class="fa-solid fa-house-chimney"></i> Beranda</a>
+        </li>
+        <li>
+          <a href="#tentang" class="mobile-link"><i class="fa-solid fa-user-astronaut"></i> Tentang Saya</a>
+        </li>
+        <li>
+          <a href="#pendidikan" class="mobile-link"><i class="fa-solid fa-graduation-cap"></i> Pendidikan</a>
+        </li>
+        <li>
+          <a href="#pengalaman" class="mobile-link"><i class="fa-solid fa-briefcase"></i> Pengalaman</a>
+        </li>
+        <li>
+          <a href="#keahlian" class="mobile-link"><i class="fa-solid fa-microchip"></i> Keahlian</a>
+        </li>
+
+        </li>
+        <li>
+          <a href="#kontak" class="mobile-link"><i class="fa-solid fa-paper-plane"></i> Hubungi Saya</a>
+        </li>
+      </ul>
+      <div class="mobile-cta-box">
+        <a href="#kontak" class="btn btn-primary full-width">Kirim Pesan</a>
+      </div>
     </div>
+  </header>
 
-    <!-- FLOATING NAVBAR (Melayang di Tengah Atas dengan Efek Oren Menyala) -->
-    <header class="navbar-wrapper">
-      <nav class="floating-navbar" id="main-navbar">
-        <!-- Glow Aura Behind Navbar -->
-        <div class="navbar-accretion-glow" aria-hidden="true"></div>
+  <!-- MAIN CONTENT CONTAINER -->
+  <main>
+    <!-- ==================== HERO SECTION (HALAMAN UTAMA) ==================== -->
+    <section id="beranda" class="hero-section">
+      <div class="hero-cosmic-glow"></div>
 
-        <!-- Brand / Logo -->
-        <a href="#beranda" class="nav-brand">
-          <span class="brand-singularity"></span>
-          <span class="brand-text"
-            >IBNU<span class="brand-dot"> </span>ARPAN</span
-          >
-        </a>
+      <div class="container hero-container">
+        <!-- Floating Cosmic Status Badge -->
 
-        <!-- Desktop Navigation Menu Items -->
-        <ul class="nav-menu" id="nav-menu">
-          <li class="nav-item">
-            <a href="#beranda" class="nav-link active">
-              <i class="fa-solid fa-house-chimney nav-icon"></i>
-              <span>Beranda</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#tentang" class="nav-link">
-              <i class="fa-solid fa-user-astronaut nav-icon"></i>
-              <span>Tentang</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#pendidikan" class="nav-link">
-              <i class="fa-solid fa-graduation-cap nav-icon"></i>
-              <span>Pendidikan</span>
-            </a>
-          </li>
-          
-          <li class="nav-item">
-            <a href="#keahlian" class="nav-link">
-              <i class="fa-solid fa-microchip nav-icon"></i>
-              <span>Keahlian</span>
-            </a>
-          </li>
+        <!-- Typewriter Subtitle -->
+        <div class="hero-typewriter-box">
+          <span class="typewriter-prefix">Seorang&nbsp;</span>
+          <span class="typewriter-text" id="typewriter"></span>
+          <span class="typewriter-cursor">|</span>
+        </div>
 
-          <li class="nav-item">
-            <a href="#kontak" class="nav-link">
-              <i class="fa-solid fa-paper-plane nav-icon"></i>
-              <span>Kontak</span>
-            </a>
-          </li>
-        </ul>
 
-        <!-- Action Button / CTA -->
-        <a href="#kontak" class="nav-cta-btn">
-          <span>Hubungi</span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </a>
+         <div class="blackhole-stage" id="blackhole-stage" aria-hidden="true"></div>
+        <!-- Big Prominent Name -->
+        <h1 class="hero-title">
 
-        <!-- Mobile Hamburger Toggle Button -->
-        <button
-          class="nav-mobile-toggle"
-          id="mobile-toggle"
-          aria-label="Buka Menu Navigasi"
-        >
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
-      </nav>
+          <br />
+         
+        </h1>
 
-      <!-- Mobile Dropdown Menu -->
-      <div class="mobile-dropdown-menu" id="mobile-dropdown">
-        <ul class="mobile-links">
-          <li>
-            <a href="#beranda" class="mobile-link active"
-              ><i class="fa-solid fa-house-chimney"></i> Beranda</a
-            >
-          </li>
-          <li>
-            <a href="#tentang" class="mobile-link"
-              ><i class="fa-solid fa-user-astronaut"></i> Tentang Saya</a
-            >
-          </li>
-          <li>
-            <a href="#pendidikan" class="mobile-link"
-              ><i class="fa-solid fa-graduation-cap"></i> Pendidikan</a
-            >
-          </li>
-          <li>
-            <a href="#pengalaman" class="mobile-link"
-              ><i class="fa-solid fa-briefcase"></i> Pengalaman</a
-            >
-          </li>
-          <li>
-            <a href="#keahlian" class="mobile-link"
-              ><i class="fa-solid fa-microchip"></i> Keahlian</a
-            >
-          </li>
-          
-          </li>
-          <li>
-            <a href="#kontak" class="mobile-link"
-              ><i class="fa-solid fa-paper-plane"></i> Hubungi Saya</a
-            >
-          </li>
-        </ul>
-        <div class="mobile-cta-box">
-          <a href="#kontak" class="btn btn-primary full-width">Kirim Pesan</a>
+        <div class="hero-badge-wrapper animate-float">
+          <div class="cosmic-status-badge">
+            <span class="pulsing-orange-dot"></span>
+            <span class="badge-text">Ini adalah awal dari perjalanan saya </span>
+          </div>
+        </div>
+        <!-- Description Paragraph -->
+
+        <!-- CTA Action Buttons -->
+        <div class="hero-actions">
+          <a href="#tentang" class="btn btn-primary btn-orange-glow">
+            <i class="fa-solid fa-compass"></i>
+            <span>Jelajahi Profil</span>
+          </a>
+          <a href="#kontak" class="btn btn-outline btn-orange-border">
+            <i class="fa-solid fa-envelope"></i>
+            <span>Hubungi Saya</span>
+          </a>
+        </div>
+
+        <!-- Tech Quick Badges -->
+        <div class="hero-tech-quick">
+
+          <div class="tech-quick-tags">
+            <span class="orbit-tag"><i class="fa-brands fa-html5"></i> HTML</span>
+            <span class="orbit-tag"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+            <span class="orbit-tag"><i class="fa-brands fa-js"></i> JavaScript</span>
+          </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+          <a href="#tentang" aria-label="Gulir ke bagian Tentang Saya">
+            <div class="mouse-icon">
+              <div class="mouse-wheel"></div>
+            </div>
+            <span class="scroll-text">Gulir Menjelajahi</span>
+            <i class="fa-solid fa-angles-down scroll-arrow"></i>
+          </a>
         </div>
       </div>
-    </header>
+    </section>
 
-    <!-- MAIN CONTENT CONTAINER -->
-    <main>
-      <!-- ==================== HERO SECTION (HALAMAN UTAMA) ==================== -->
-      <section id="beranda" class="hero-section">
-        <div class="hero-cosmic-glow"></div>
+    <!-- ==================== ABOUT ME SECTION (TENTANG SAYA) ==================== -->
+    <section id="tentang" class="section about-section">
+      <div class="section-ambient-light"></div>
 
-        <div class="container hero-container">
-          <!-- Floating Cosmic Status Badge -->
-         
-          <!-- Typewriter Subtitle -->
-          <div class="hero-typewriter-box">
-            <span class="typewriter-prefix"> Saya Seorang&nbsp;</span>
-            <span class="typewriter-text" id="typewriter"></span>
-            <span class="typewriter-cursor">|</span>
-          </div>
-
-              <!-- Big Prominent Name -->
-          <h1 class="hero-title">
-            
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-             
-          </h1>
-          
-           <div class="hero-badge-wrapper animate-float">
-            <div class="cosmic-status-badge">
-              <span class="pulsing-orange-dot"></span>
-              <span class="badge-text"
-                >Ini adalah awal dari perjalanan saya </span
-              >
-            </div>
-          </div>
-          <!-- Description Paragraph -->
-         
-          <!-- CTA Action Buttons -->
-           <div class="hero-actions">
-            <a href="#tentang" class="btn btn-primary btn-orange-glow">
-              <i class="fa-solid fa-compass"></i>
-              <span>Jelajahi Profil</span>
-            </a>
-            <a href="#kontak" class="btn btn-outline btn-orange-border">
-              <i class="fa-solid fa-envelope"></i>
-              <span>Hubungi Saya</span>
-            </a>
-          </div>
-
-          <!-- Tech Quick Badges -->
-          <div class="hero-tech-quick">
-            
-            <div class="tech-quick-tags">
-              <span class="orbit-tag"
-                ><i class="fa-brands fa-html5"></i> HTML</span
-              >
-              <span class="orbit-tag"
-                ><i class="fa-brands fa-css3-alt"></i> CSS</span
-              >
-              <span class="orbit-tag"
-                ><i class="fa-brands fa-js"></i> JavaScript</span
-              >
-            </div>
-          </div>
-
-          <!-- Scroll Indicator -->
-          <div class="scroll-indicator">
-            <a href="#tentang" aria-label="Gulir ke bagian Tentang Saya">
-              <div class="mouse-icon">
-                <div class="mouse-wheel"></div>
-              </div>
-              <span class="scroll-text">Gulir Menjelajahi</span>
-              <i class="fa-solid fa-angles-down scroll-arrow"></i>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==================== ABOUT ME SECTION (TENTANG SAYA) ==================== -->
-      <section id="tentang" class="section about-section">
-        <div class="section-ambient-light"></div>
-
-        <div class="container">
-          <!-- Section Header -->
-          <div class="section-header text-center">
-            <span class="section-tag">
-              <i class="fa-solid fa-atom"></i> Mengenal Lebih Dekat
-            </span>
-            <h2 class="section-title">
-              Tentang <span class="text-orange-glow">Saya</span>
-              <p  class="section-subtitle">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header text-center">
+          <span class="section-tag">
+            <i class="fa-solid fa-atom"></i> Mengenal Lebih Dekat
+          </span>
+          <h2 class="section-title">
+            Tentang <span class="text-orange-glow">Saya</span>
+            <p class="section-subtitle">
               Dari ketidaktahuan menjadi keahlian.
             </p>
-            </h2>
-          </div>
-
-          <div class="about-grid">
-            <!-- Col 1: Profile Photo with Black Hole Accretion Disk Border -->
-            <div class="about-avatar-column">
-              <div class="avatar-cosmic-wrapper">
-                <!-- Animated Rotating Accretion Ring -->
-                <div class="accretion-disc-ring"></div>
-                <div class="accretion-disc-glow"></div>
-
-                <!-- Orbital Particle Rings -->
-                <div class="orbit-ring orbit-ring-1">
-                  <span class="orbiting-body body-1" title="Kreativitas"
-                    ><i class="fa-solid fa-lightbulb"></i
-                  ></span>
-                </div>
-                <div class="orbit-ring orbit-ring-2">
-                  <span class="orbiting-body body-2" title="Kode Bersih"
-                    ><i class="fa-solid fa-code"></i
-                  ></span>
-                </div>
-                <div class="orbit-ring orbit-ring-3">
-                  <span class="orbiting-body body-3" title="Kecepatan"
-                    ><i class="fa-solid fa-bolt"></i
-                  ></span>
-                </div>
-
-                <!-- Main Avatar Card Container -->
-                <div class="avatar-card">
-                  <div class="avatar-image-box">
-
-
-                    <!-- INI GAMBAR DIRI -->
-                    <svg
-                      class="avatar-svg"
-                      viewBox="0 0 240 240"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      >
-                      <defs>
-                        <linearGradient
-                          id="avatarBg"
-                          x1="0%"
-                          y1="0%"
-                          x2="100%"
-                          y2="100%"
-                        >
-                          <stop offset="0%" stop-color="#0e0720" />
-                          <stop offset="50%" stop-color="#1b0b2e" />
-                          <stop offset="100%" stop-color="#2d1045" />
-                        </linearGradient>
-                        <linearGradient
-                          id="helmetVisor"
-                          x1="0%"
-                          y1="0%"
-                          x2="100%"
-                          y2="100%"
-                        >
-                          <stop offset="0%" stop-color="#ff7b00" />
-                          <stop offset="50%" stop-color="#ff4400" />
-                          <stop offset="100%" stop-color="#7b00ff" />
-                        </linearGradient>
-                        <linearGradient
-                          id="suitGlow"
-                          x1="0%"
-                          y1="0%"
-                          x2="100%"
-                          y2="100%"
-                        >
-                          <stop offset="0%" stop-color="#ff8c00" />
-                          <stop offset="100%" stop-color="#ffa200" />
-                        </linearGradient>
-                         <clipPath id="fotoLingkaran">
-                          <circle cx="120" cy="120" r="114" />
-                        </clipPath>
-                      </defs>
-                      <!-- Background Space Circle -->
-                       
-                      <circle
-                        cx="120"
-                        cy="120"
-                        r="115"
-                        fill="url(#avatarBg)"
-                        stroke="rgba(255, 128, 0, 0.4)"
-                        stroke-width="2"
-                      />
-                       <!-- TAMBAHAN 2: Foto Kamu di Tengah -->
-                        <image
-                          href="foto-saya.png"
-                          x="-20"
-                          y="10"
-                          width="280"
-                          height="250"
-                          preserveAspectRatio="xMidYMax meet"
-                          clip-path="url(#fotoLingkaran)"
-                        />        
-                      <!-- Tiny Stars inside Avatar -->
-                      <circle
-                        cx="45"
-                        cy="50"
-                        r="1.5"
-                        fill="#ffffff"
-                        opacity="0.8"
-                      />
-                     
-                      <circle
-                        cx="190"
-                        cy="70"
-                        r="2"
-                        fill="#ffb300"
-                        opacity="0.9"
-                      />
-                      
-                      <circle
-                        cx="70"
-                        cy="170"
-                        r="1.5"
-                        fill="#ffffff"
-                        opacity="0.7"
-                      />
-                      
-                      <circle
-                        cx="180"
-                        cy="165"
-                        r="1.5"
-                        fill="#ff7b00"
-                        opacity="0.8"
-                      />
-                               
-                    </svg> 
-                  </div>
-
-                  <div class="avatar-badge-caption">
-                    <span class="caption-title">IBNU ARPAN</span>
-                    <span class="caption-role">Full stack Developer</span>
-                  </div>
-                </div>
-              </div>
-                <br />
-                <br />
-            </div>
-
-            <!-- Col 2: Bio, Philosophy & Details -->
-            <div class="about-content-column">
-              <div class="about-card cosmic-card">
-                <div class="card-glow-edge"></div>
-
-                <h3 class="about-heading">
-                  Dari
-                  <span class="text-orange-glow">"Amatir Developer"</span>
-                  Menuju Calon Wakil Presiden.
-                </h3>
-
-                <p class="about-paragraph">
-                  Saya adalah seorang pengembang web yang memulai petualangan
-                  dari rasa penasaran besar terhadap cara kerja dunia digital.
-                  Menyandang sebutan <em>'Amatir Developer'</em> adalah
-                  kebanggaan tersendiri bagi saya, karena itu mencerminkan
-                  mentalitas <strong>selalu lapar akan ilmu baru</strong>, tekun
-                  belajar dari kesalahan, dan tidak pernah berpuas diri.
-                </p>
-
-                <p class="about-paragraph">
-                  Bagi saya, baris-baris kode bukan sekadar sintaks, melainkan
-                  instrumen untuk merajut ide menjadi kenyataan yang fungsional,
-                  estetik, dan berdampak nyata bagi penggunanya. Fokus saya saat
-                  ini berpusat pada pengembangan web modern dengan antarmuka
-                  responsif, animasi interaktif, serta arsitektur kode yang
-                  terstruktur rapi.
-                </p>
-
-                <!-- Bio Detail Badges Grid -->
-                <div class="bio-details-grid">
-                  <div class="bio-item">
-                    <div class="bio-icon">
-                      <i class="fa-solid fa-user-tag"></i>
-                    </div>
-                    <div class="bio-info">
-                      <span class="bio-label">Nama Lengkap</span>
-                      <span class="bio-val">Ibnu Arpan</span>
-                    </div>
-                  </div>
-                  <div class="bio-item">
-                    <div class="bio-icon">
-                      <i class="fa-solid fa-location-dot"></i>
-                    </div>
-                    <div class="bio-info">
-                      <span class="bio-label">Domisili</span>
-                      <span class="bio-val">Kalideres, Jakarta Barat</span>
-                    </div>
-                  </div>
-                  <div class="bio-item">
-                    <div class="bio-icon">
-                      <i class="fa-solid fa-code-branch"></i>
-                    </div>
-                    <div class="bio-info">
-                      <span class="bio-label">Fokus Utama</span>
-                      <span class="bio-val">Frontend & Fullstack Web</span>
-                    </div>
-                  </div>
-                  <div class="bio-item">
-                    <div class="bio-icon">
-                      <i class="fa-solid fa-circle-check"></i>
-                    </div>
-                    <div class="bio-info">
-                      <span class="bio-label">Hobi</span>
-                      <span class="bio-val text-orange"
-                        >Tidur & Mancing</span
-                      >
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Key Strengths -->
-                <div class="about-highlights">
-                  <div class="highlight-pill">
-                    <i class="fa-solid fa-circle-nodes"></i> Pemecah Masalah
-                    Logis
-                  </div>
-                  <div class="highlight-pill">
-                    <i class="fa-solid fa-infinity"></i> Pembelajar Cepat &
-                    Adaptif
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ==================== STATISTIK (STATISTICS CARDS) ==================== -->
-          <div class="statistics-section" id="statistik">
-            <div class="statistics-grid">
-              <!-- Stat Item 1 -->
-              <div class="stat-card cosmic-card">
-                <div class="stat-icon-wrapper">
-                  <i class="fa-solid fa-diagram-project"></i>
-                </div>
-                <div class="stat-number-box">
-                  <span class="stat-counter" data-target="0">0</span>
-                  <span class="stat-suffix">+</span>
-                </div>
-                <h4 class="stat-title">Proyek Diselesaikan</h4>
-                <p class="stat-desc">
-                  Aplikasi web, landing page interaktif & modul sistem.
-                </p>
-                <div class="stat-glow"></div>
-              </div>
-
-              <!-- Stat Item 2 -->
-              <div class="stat-card cosmic-card">
-                <div class="stat-icon-wrapper">
-                  <i class="fa-solid fa-hourglass-half"></i>
-                </div>
-                <div class="stat-number-box">
-                  <span class="stat-counter" data-target="1">0</span>
-                  <span class="stat-suffix">+</span>
-                </div>
-                <h4 class="stat-title">Tahun Eksplorasi</h4>
-                <p class="stat-desc">
-                  Konsisten mengasah kemampuan coding & teknologi modern.
-                </p>
-                <div class="stat-glow"></div>
-              </div>
-
-              <!-- Stat Item 3 -->
-              <div class="stat-card cosmic-card">
-                <div class="stat-icon-wrapper">
-                  <i class="fa-solid fa-cubes-stacked"></i>
-                </div>
-                <div class="stat-number-box">
-                  <span class="stat-counter" data-target="0">0</span>
-                  <span class="stat-suffix">+</span>
-                </div>
-                <h4 class="stat-title">Teknologi & Tools</h4>
-                <p class="stat-desc">
-                  Dikuasai mulai dari frontend, backend, hingga dev tools.
-                </p>
-                <div class="stat-glow"></div>
-              </div>
-
-              <!-- Stat Item 4 -->
-              <div class="stat-card cosmic-card">
-                <div class="stat-icon-wrapper">
-                  <i class="fa-solid fa-mug-hot"></i>
-                </div>
-                <div class="stat-number-box">
-                  <span class="stat-counter" data-target="99">0</span>
-                  <span class="stat-suffix">.9%</span>
-                </div>
-                <h4 class="stat-title">Dedikasi & Semangat</h4>
-                <p class="stat-desc">
-                  Komitmen tinggi terhadap kualitas dan ketepatan kode.
-                </p>
-                <div class="stat-glow"></div>
-              </div>
-            </div>
-          </div>
+          </h2>
         </div>
-      </section>
 
-      <!-- ==================== RIWAYAT PENDIDIKAN SECTION ==================== -->
-      <section id="pendidikan" class="section education-section">
-        <div class="container">
-          <!-- Section Header -->
-          <div class="section-header text-center">
-            <span class="section-tag">
-              <i class="fa-solid fa-graduation-cap"></i> Jejak Akademik & Studi
-            </span>
-            <h2 class="section-title">
-              Riwayat <span class="text-orange-glow">Pendidikan</span>
-            </h2>
-            <div class="section-line"></div>
-            <p class="section-subtitle">
-              Pendidikan Bukan Sekedar Gelar, Tapi Perjalanan Belajar & Eksperimen
-            </p>
+        <div class="about-grid">
+          <!-- Col 1: Profile Photo with Black Hole Accretion Disk Border -->
+          <div class="about-avatar-column">
+            <div class="avatar-cosmic-wrapper">
+              <!-- Animated Rotating Accretion Ring -->
+              <div class="accretion-disc-ring"></div>
+              <div class="accretion-disc-glow"></div>
+
+              <!-- Orbital Particle Rings -->
+              <div class="orbit-ring orbit-ring-1">
+                <span class="orbiting-body body-1" title="Kreativitas"><i class="fa-solid fa-lightbulb"></i></span>
+              </div>
+              <div class="orbit-ring orbit-ring-2">
+                <span class="orbiting-body body-2" title="Kode Bersih"><i class="fa-solid fa-code"></i></span>
+              </div>
+              <div class="orbit-ring orbit-ring-3">
+                <span class="orbiting-body body-3" title="Kecepatan"><i class="fa-solid fa-bolt"></i></span>
+              </div>
+
+              <!-- Main Avatar Card Container -->
+              <div class="avatar-card">
+                <div class="avatar-image-box">
+
+
+                  <!-- INI GAMBAR lingkaran -->
+                  <svg class="avatar-svg" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="avatarBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#0e0720" />
+                        <stop offset="50%" stop-color="#1b0b2e" />
+                        <stop offset="100%" stop-color="#2d1045" />
+                      </linearGradient>
+                      <linearGradient id="helmetVisor" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ff7b00" />
+                        <stop offset="50%" stop-color="#ff4400" />
+                        <stop offset="100%" stop-color="#7b00ff" />
+                      </linearGradient>
+                      <linearGradient id="suitGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ff8c00" />
+                        <stop offset="100%" stop-color="#ffa200" />
+                      </linearGradient>
+                      <clipPath id="fotoLingkaran">
+                        <circle cx="120" cy="120" r="114" />
+                      </clipPath>
+                    </defs>
+                    <!-- Background Space Circle -->
+
+                    <circle cx="120" cy="120" r="115" fill="url(#avatarBg)" stroke="rgba(255, 128, 0, 0.4)"
+                      stroke-width="2" />
+                    <!-- TAMBAHAN 2: Foto Kamu di Tengah -->
+                    <image href="foto-saya.png" x="-20" y="10" width="280" height="250"
+                      preserveAspectRatio="xMidYMax meet" clip-path="url(#fotoLingkaran)" />
+                    <!-- Tiny Stars inside Avatar -->
+                    <circle cx="45" cy="50" r="1.5" fill="#ffffff" opacity="0.8" />
+
+                    <circle cx="190" cy="70" r="2" fill="#ffb300" opacity="0.9" />
+
+                    <circle cx="70" cy="170" r="1.5" fill="#ffffff" opacity="0.7" />
+
+                    <circle cx="180" cy="165" r="1.5" fill="#ff7b00" opacity="0.8" />
+
+                  </svg>
+                </div>
+
+                <div class="avatar-badge-caption">
+                  <span class="caption-title">IBNU ARPAN</span>
+                  <span class="caption-role">Full stack Developer</span>
+                </div>
+              </div>
+            </div>
+            <br />
+            <br />
           </div>
 
-          <!-- Education Timeline -->
-          <div class="timeline-container">
-            <div class="timeline-center-line"></div>
+          <!-- Col 2: Bio, Philosophy & Details -->
+          <div class="about-content-column">
+            <div class="about-card cosmic-card">
+              <div class="card-glow-edge"></div>
 
-            <!-- Education Item 1 -->
-            <div class="timeline-item timeline-left">
-              <div class="timeline-dot">
-                <i class="fa-solid fa-university"></i>
-              </div>
-              <div class="timeline-content cosmic-card">
-                <div class="timeline-badge">2026 - Sekarang</div>
-                <h3 class="timeline-title">
-                  S1 - Teknik Informatika
-                </h3>
-                <h4 class="timeline-institution">
-                  Universitas Pamulang, Tangerang Selatan.
-                </h4>
-                <p class="timeline-description">
-                  Mempelajari konsep dasar dan lanjutan dalam pengembangan perangkat lunak, algoritma, struktur data, serta penerapan teknologi web modern.
-                </p>
-                <div class="timeline-tags">
-                  <span class="tag">Algoritma & Struktur Data</span>
-                  <span class="tag">Web Engineering</span>
-                  <span class="tag">Database System</span>
+              <h3 class="about-heading">
+                Dari
+                <span class="text-orange-glow">"Amatir Developer"</span>
+                Menuju Calon Wakil Presiden.
+              </h3>
+
+              <p class="about-paragraph">
+                Saya adalah seorang pengembang web yang memulai petualangan
+                dari rasa penasaran besar terhadap cara kerja dunia digital.
+                Menyandang sebutan <em>'Amatir Developer'</em> adalah
+                kebanggaan tersendiri bagi saya, karena itu mencerminkan
+                mentalitas <strong>selalu lapar akan ilmu baru</strong>, tekun
+                belajar dari kesalahan, dan tidak pernah berpuas diri.
+              </p>
+
+              <p class="about-paragraph">
+                Bagi saya, baris-baris kode bukan sekadar sintaks, melainkan
+                instrumen untuk merajut ide menjadi kenyataan yang fungsional,
+                estetik, dan berdampak nyata bagi penggunanya. Fokus saya saat
+                ini berpusat pada pengembangan web modern dengan antarmuka
+                responsif, animasi interaktif, serta arsitektur kode yang
+                terstruktur rapi.
+              </p>
+
+              <!-- Bio Detail Badges Grid -->
+              <div class="bio-details-grid">
+                <div class="bio-item">
+                  <div class="bio-icon">
+                    <i class="fa-solid fa-user-tag"></i>
+                  </div>
+                  <div class="bio-info">
+                    <span class="bio-label">Nama Lengkap</span>
+                    <span class="bio-val">Ibnu Arpan</span>
+                  </div>
+                </div>
+                <div class="bio-item">
+                  <div class="bio-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                  </div>
+                  <div class="bio-info">
+                    <span class="bio-label">Domisili</span>
+                    <span class="bio-val">Kalideres, Jakarta Barat</span>
+                  </div>
+                </div>
+                <div class="bio-item">
+                  <div class="bio-icon">
+                    <i class="fa-solid fa-code-branch"></i>
+                  </div>
+                  <div class="bio-info">
+                    <span class="bio-label">Fokus Utama</span>
+                    <span class="bio-val">Frontend & Fullstack Web</span>
+                  </div>
+                </div>
+                <div class="bio-item">
+                  <div class="bio-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                  </div>
+                  <div class="bio-info">
+                    <span class="bio-label">Hobi</span>
+                    <span class="bio-val text-orange">Tidur & Mancing</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Education Item 2 -->
-            <div class="timeline-item timeline-right">
-              <div class="timeline-dot">
-                <i class="fa-solid fa-certificate"></i>
-              </div>
-              <div class="timeline-content cosmic-card">
-                <div class="timeline-badge">2019 - 2019</div>
-                <h3 class="timeline-title">
-                  Program Sertifikasi & Bootcamp Web Development
-                </h3>
-                <h4 class="timeline-institution">
-                  Platform Pembelajaran Digital (Dicoding / FreeCodeCamp /
-                  Udemy)
-                </h4>
-                <p class="timeline-description">
-                  Menyelesaikan kurikulum intensif pengembangan web: Belajar
-                  Dasar Pemrograman Web, Fundamental Front-End Web Development,
-                  JavaScript.
-                </p>
-                <div class="timeline-tags">
-                  <span class="tag">Front-End</span>
-                  <span class="tag">Responsive Design</span>
+              <!-- Key Strengths -->
+              <div class="about-highlights">
+                <div class="highlight-pill">
+                  <i class="fa-solid fa-circle-nodes"></i> Pemecah Masalah
+                  Logis
                 </div>
-              </div>
-            </div>
-
-            <!-- Education Item 3 -->
-            <div class="timeline-item timeline-left">
-              <div class="timeline-dot">
-                <i class="fa-solid fa-school"></i>
-              </div>
-              <div class="timeline-content cosmic-card">
-                <div class="timeline-badge">2013 - 2016</div>
-                <h3 class="timeline-title">
-                  Sekolah Menengah Kejuruan (SMK)
-                </h3>
-                <h4 class="timeline-institution">
-                  Jurusan Teknik Kendaraan Ringan (TKR), SMK TI PUI Kota Cirebon
-                </h4>
-                <p class="timeline-description">
-                  Mempelajari dasar-dasar elektronika, mekanika kendaraan roda 2 dan roda 4, serta pengenalan sistem otomotif modern berbasis komputer.
-                </p>
-                <div class="timeline-tags">
-                  <span class="tag">Mekanikal</span>
-                  <span class="tag">Dasar Komputasi</span>
+                <div class="highlight-pill">
+                  <i class="fa-solid fa-infinity"></i> Pembelajar Cepat &
+                  Adaptif
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
 
-      <!-- ==================== PENGALAMAN SECTION ==================== -->
-                            <!-- cari di notepad -->
-
-      <!-- ==================== KEAHLIAN (TECH STACK & SKILLS) ==================== -->
-      <section id="keahlian" class="section skills-section">
-        <div class="container">
-          <!-- Section Header -->
-          <div class="section-header text-center">
-            <span class="section-tag">
-              <i class="fa-solid fa-microchip"></i> Senjata & Keahlian
-            </span>
-            <h2 class="section-title">
-              Tech <span class="text-orange-glow">Stack Orbit</span>
-            </h2>
-            <div class="section-line"></div>
-            <p class="section-subtitle">
-              Kumpulan teknologi, pustaka, dan perangkat yang saya gunakan untuk
-              mengeksekusi visi digital.
-            </p>
-          </div>
-
-          <div class="skills-category-grid">
-            <!-- Skill Category 1: Front-End Tech -->
-            <div class="skill-category-card cosmic-card">
-              <div class="cat-header">
-                <i class="fa-solid fa-palette cat-icon"></i>
-                <h3>Front-End Universe</h3>
+        <!-- ==================== STATISTIK (STATISTICS CARDS) ==================== -->
+        <div class="statistics-section" id="statistik">
+          <div class="statistics-grid">
+            <!-- Stat Item 1 -->
+            <div class="stat-card cosmic-card">
+              <div class="stat-icon-wrapper">
+                <i class="fa-solid fa-diagram-project"></i>
               </div>
-              <div class="skill-items-list">
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-brands fa-html5 text-orange"></i> HTML5 &
-                      Semantik</span
-                    >
-                    <span class="skill-percent">25%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 25%"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-brands fa-css3-alt text-orange"></i> CSS3 &
-                      Animasi Modern</span
-                    >
-                    <span class="skill-percent">35%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 35%"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-brands fa-js text-orange"></i> JavaScript
-                      (ES6+)</span
-                    >
-                    <span class="skill-percent">15%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 15%"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-brands fa-react text-orange"></i>
-                      React.js</span
-                    >
-                    <span class="skill-percent">5%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 5%"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-solid fa-wind text-orange"></i> Tailwind
-                      CSS</span
-                    >
-                    <span class="skill-percent">5%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 5%"></div>
-                  </div>
-                </div>
+              <div class="stat-number-box">
+                <span class="stat-counter" data-target="0">0</span>
+                <span class="stat-suffix">+</span>
               </div>
+              <h4 class="stat-title">Proyek Diselesaikan</h4>
+              <p class="stat-desc">
+                Aplikasi web, landing page interaktif & modul sistem.
+              </p>
+              <div class="stat-glow"></div>
             </div>
 
-            <!-- Skill Category 2: Backend & Tools -->
-            <div class="skill-category-card cosmic-card">
-              <div class="cat-header">
-                <i class="fa-solid fa-server cat-icon"></i>
-                <h3>Backend & Environment</h3>
+            <!-- Stat Item 2 -->
+            <div class="stat-card cosmic-card">
+              <div class="stat-icon-wrapper">
+                <i class="fa-solid fa-hourglass-half"></i>
               </div>
-              <div class="skill-items-list">
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-brands fa-node-js text-orange"></i> Node.js
-                      & Express Dasar</span
-                    >
-                    <span class="skill-percent">5%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 5%"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-solid fa-database text-orange"></i> MySQL /
-                      MongoDB Dasar</span
-                    >
-                    <span class="skill-percent">5%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 5%"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-solid fa-network-wired text-orange"></i>
-                      RESTful API Integration</span
-                    >
-                    <span class="skill-percent">5%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 5%"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-brands fa-git-alt text-orange"></i> Git &
-                      GitHub Version Control</span
-                    >
-                    <span class="skill-percent">5%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 5%"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-solid fa-terminal text-orange"></i> CLI &
-                      Automation</span
-                    >
-                    <span class="skill-percent">5%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 5%"></div>
-                  </div>
-                </div>
+              <div class="stat-number-box">
+                <span class="stat-counter" data-target="1">0</span>
+                <span class="stat-suffix">+</span>
               </div>
+              <h4 class="stat-title">Tahun Eksplorasi</h4>
+              <p class="stat-desc">
+                Konsisten mengasah kemampuan coding & teknologi modern.
+              </p>
+              <div class="stat-glow"></div>
             </div>
 
-            <!-- Skill Category 3: Creative & UI/UX -->
-            <div class="skill-category-card cosmic-card">
-              <div class="cat-header">
-                <i class="fa-solid fa-wand-magic-sparkles cat-icon"></i>
-                <h3>Kreativitas & Konsep</h3>
+            <!-- Stat Item 3 -->
+            <div class="stat-card cosmic-card">
+              <div class="stat-icon-wrapper">
+                <i class="fa-solid fa-cubes-stacked"></i>
               </div>
-              <div class="skill-items-list">
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-brands fa-figma text-orange"></i> Figma
-                      UI/UX Slicing</span
-                    >
-                    <span class="skill-percent">5%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 5%"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-solid fa-mobile-screen text-orange"></i>
-                      Responsive Mobile-First</span
-                    >
-                    <span class="skill-percent">5%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 5%"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-solid fa-sparkles text-orange"></i> Canvas &
-                      Physics Animations</span
-                    >
-                    <span class="skill-percent">5%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 5%"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-solid fa-gauge-high text-orange"></i> Web
-                      Performance & SEO</span
-                    >
-                    <span class="skill-percent">15%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 15%"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <div class="skill-top">
-                    <span class="skill-name"
-                      ><i class="fa-solid fa-bug text-orange"></i> Problem
-                      Solving & Debugging</span
-                    >
-                    <span class="skill-percent">5%</span>
-                  </div>
-                  <div class="skill-progress-bar">
-                    <div class="skill-progress-fill" style="width: 5%"></div>
-                  </div>
-                </div>
+              <div class="stat-number-box">
+                <span class="stat-counter" data-target="0">0</span>
+                <span class="stat-suffix">+</span>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==================== PORTOFOLIO PROYEK SECTION ==================== -->
-                                  <!-- cari di notepad -->
-
-      <!-- ==================== KONTAK SECTION ==================== -->
-      <section id="kontak" class="section contact-section">
-        <div class="container">
-          <!-- Section Header -->
-          <div class="section-header text-center">
-            <span class="section-tag">
-              <i class="fa-solid fa-satellite-dish"></i> Kanal Transmisi
-            </span>
-            <h2 class="section-title">
-              Kontak <span class="text-orange-glow">Saya</span>
-            </h2>
-            <div class="section-line"></div>
-            <p class="section-subtitle">
-              Punya ide proyek, tawaran kolaborasi, atau sekadar ingin menyapa?
-              Sinyal Anda akan selalu saya sambut.
-            </p>
-          </div>
-
-          <div class="contact-grid">
-            <!-- Col 1: Contact Info & Socials -->
-            <div class="contact-info-col">
-              <div class="contact-info-card cosmic-card">
-                <h3 class="contact-card-title">
-                  Mari Terhubung di Galaksi Ini
-                </h3>
-                <p class="contact-card-p">
-                  Saya selalu antusias menyambut peluang baru, baik proyek
-                  freelance, kerjasama tim, maupun diskusi seputar pengembangan
-                  teknologi web.
-                </p>
-
-                <div class="contact-channels-list">
-                  <!-- Email Item -->
-                  <div class="contact-channel-item">
-                    <div class="channel-icon">
-                      <i class="fa-solid fa-envelope"></i>
-                    </div>
-                    <div class="channel-content">
-                      <span class="channel-name">Surel / Email</span>
-                      <a
-                        href="mailto:iarpan95@gmail.com"
-                        class="channel-value"
-                        id="email-link"
-                        >iarpan95@gmail.com</a
-                      >
-                    </div>
-                    <button
-                      class="copy-btn"
-                      id="copy-email-btn"
-                      title="Salin Email"
-                    >
-                      <i class="fa-solid fa-copy"></i>
-                    </button>
-                  </div>
-
-                  <!-- WhatsApp Item -->
-                  <div class="contact-channel-item">
-                    <div class="channel-icon">
-                      <i class="fa-brands fa-whatsapp"></i>
-                    </div>
-                    <div class="channel-content">
-                      <span class="channel-name">WhatsApp</span>
-                      <a
-                        href="https://wa.me/6281314649850"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="channel-value"
-                        >+62 813-1464-9850</a
-                      >
-                    </div>
-                  </div>
-
-                  <!-- Location Item -->
-                  <div class="contact-channel-item">
-                    <div class="channel-icon">
-                      <i class="fa-solid fa-location-crosshairs"></i>
-                    </div>
-                    <div class="channel-content">
-                      <span class="channel-name">Lokasi</span>
-                      <span class="channel-value">Kalideres, Jakarta Barat</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Social Media Orbit Icons -->
-                <div class="social-orbit-container">
-                  <span class="social-title">Jaringan Sosial:</span>
-                  <div class="social-icons-row">
-                    <a
-                      href="https://github.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="social-link"
-                      title="GitHub"
-                    >
-                      <i class="fa-brands fa-github"></i>
-                    </a>
-                    <a
-                      href="https://linkedin.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="social-link"
-                      title="LinkedIn"
-                    >
-                      <i class="fa-brands fa-linkedin-in"></i>
-                    </a>
-                    <a
-                      href="https://instagram.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="social-link"
-                      title="Instagram"
-                    >
-                      <i class="fa-brands fa-instagram"></i>
-                    </a>
-                    <a
-                      href="https://t.me"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="social-link"
-                      title="Telegram"
-                    >
-                      <i class="fa-brands fa-telegram"></i>
-                    </a>
-                    <a
-                      href="https://discord.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="social-link"
-                      title="Discord"
-                    >
-                      <i class="fa-brands fa-discord"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <h4 class="stat-title">Teknologi & Tools</h4>
+              <p class="stat-desc">
+                Dikuasai mulai dari frontend, backend, hingga dev tools.
+              </p>
+              <div class="stat-glow"></div>
             </div>
 
-            <!-- Col 2: Interactive Contact Form -->
-            <div class="contact-form-col">
-              <div class="form-card cosmic-card">
-                <h3 class="form-title">
-                  <i class="fa-solid fa-paper-plane text-orange"></i> Kirim
-                  Transmisi Pesan
-                </h3>
-
-                <form id="contact-form" class="cosmic-form" novalidate>
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="sender-name">Nama Lengkap *</label>
-                      <div class="input-wrapper">
-                        <i class="fa-solid fa-user input-icon"></i>
-                        <input
-                          type="text"
-                          id="sender-name"
-                          name="name"
-                          placeholder="cth. Budi Santoso"
-                          required
-                        />
-                      </div>
-                      <span class="form-error" id="name-error"></span>
-                    </div>
-                    <div class="form-group">
-                      <label for="sender-email">Alamat Email *</label>
-                      <div class="input-wrapper">
-                        <i class="fa-solid fa-at input-icon"></i>
-                        <input
-                          type="email"
-                          id="sender-email"
-                          name="email"
-                          placeholder="nama@domain.com"
-                          required
-                        />
-                      </div>
-                      <span class="form-error" id="email-error"></span>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="sender-subject">Subjek / Topik *</label>
-                    <div class="input-wrapper">
-                      <i class="fa-solid fa-heading input-icon"></i>
-                      <input
-                        type="text"
-                        id="sender-subject"
-                        name="subject"
-                        placeholder="cth. Penawaran Proyek Website"
-                        required
-                      />
-                    </div>
-                    <span class="form-error" id="subject-error"></span>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="sender-message">Isi Pesan Transmisi *</label>
-                    <div class="input-wrapper textarea-wrapper">
-                      <i class="fa-solid fa-comment-dots input-icon"></i>
-                      <textarea
-                        id="sender-message"
-                        name="message"
-                        rows="5"
-                        placeholder="Tuliskan pesan, rincian proyek, atau ide Anda di sini..."
-                        required
-                      ></textarea>
-                    </div>
-                    <span class="form-error" id="message-error"></span>
-                  </div>
-
-                  <button
-                    type="submit"
-                    class="btn btn-primary btn-orange-glow btn-submit"
-                    id="submit-btn"
-                  >
-                    <i class="fa-solid fa-rocket"></i>
-                    <span>Luncurkan Pesan</span>
-                  </button>
-
-                  <div
-                    class="form-status"
-                    id="form-status"
-                    aria-live="polite"
-                  ></div>
-                </form>
+            <!-- Stat Item 4 -->
+            <div class="stat-card cosmic-card">
+              <div class="stat-icon-wrapper">
+                <i class="fa-solid fa-mug-hot"></i>
               </div>
+              <div class="stat-number-box">
+                <span class="stat-counter" data-target="99">0</span>
+                <span class="stat-suffix">.9%</span>
+              </div>
+              <h4 class="stat-title">Dedikasi & Semangat</h4>
+              <p class="stat-desc">
+                Komitmen tinggi terhadap kualitas dan ketepatan kode.
+              </p>
+              <div class="stat-glow"></div>
             </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- ==================== FOOTER ==================== -->
-    <footer class="cosmic-footer">
-      <div class="container footer-container">
-        <div class="footer-top">
-          <div class="footer-brand">
-            <span class="brand-singularity"></span>
-            <span class="brand-text"
-              >IBNU<span class="brand-dot"> </span> ARPAN</span
-            >
-          </div>
-          <p class="footer-tagline">
-            Waktu adalah sumber daya yang paling berharga. Mari kita gunakan dengan bijak untuk menciptakan sesuatu yang luar biasa.
-          </p>
-        </div>
-
-        <div class="footer-divider"></div>
-
-        <div class="footer-bottom">
-          <p class="copyright-text">
-            &copy; <span id="current-year">2026</span> <strong>Ibnu arpan</strong>.
-            Seluruh hak cipta dilindungi. Terus menjelajahi semesta kode.
-          </p>
-          <div class="footer-links">
-            <a href="#beranda">Beranda</a>
-            <a href="#tentang">Tentang</a>
-            <a href="#proyek">Proyek</a>
-            <a href="#kontak">Kontak</a>
           </div>
         </div>
       </div>
-    </footer>
+    </section>
 
-    <!-- Floating Scroll To Top Button -->
-    <button
-      class="back-to-top-btn"
-      id="back-to-top"
-      title="Kembali ke Puncak Singularity"
-    >
-      <i class="fa-solid fa-rocket"></i>
-    </button>
-
-    <!-- Project Detail Modal Popup -->
-    <div class="project-modal-backdrop" id="project-modal" aria-hidden="true">
-      <div
-        class="project-modal-content cosmic-card"
-        role="dialog"
-        aria-modal="true"
-      >
-        <button
-          class="modal-close-btn"
-          id="modal-close-btn"
-          aria-label="Tutup Detail Proyek"
-        >
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-        <div class="modal-header">
-          <div class="modal-badge" id="modal-badge">Kategori</div>
-          <h3 class="modal-title" id="modal-title">Judul Proyek</h3>
+    <!-- ==================== RIWAYAT PENDIDIKAN SECTION ==================== -->
+    <section id="pendidikan" class="section education-section">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header text-center">
+          <span class="section-tag">
+            <i class="fa-solid fa-graduation-cap"></i> Jejak Akademik & Studi
+          </span>
+          <h2 class="section-title">
+            Riwayat <span class="text-orange-glow">Pendidikan</span>
+          </h2>
+          <div class="section-line"></div>
+          <p class="section-subtitle">
+            Pendidikan Bukan Sekedar Gelar, Tapi Perjalanan Belajar & Eksperimen
+          </p>
         </div>
-        <div class="modal-body">
-          <div class="modal-icon-banner" id="modal-icon-banner">
-            <i class="fa-solid fa-laptop-code"></i>
+
+        <!-- Education Timeline -->
+        <div class="timeline-container">
+          <div class="timeline-center-line"></div>
+
+          <!-- Education Item 1 -->
+          <div class="timeline-item timeline-left">
+            <div class="timeline-dot">
+              <i class="fa-solid fa-university"></i>
+            </div>
+            <div class="timeline-content cosmic-card">
+              <div class="timeline-badge">2026 - Sekarang</div>
+              <h3 class="timeline-title">
+                S1 - Teknik Informatika
+              </h3>
+              <h4 class="timeline-institution">
+                Universitas Pamulang, Tangerang Selatan.
+              </h4>
+              <p class="timeline-description">
+                Mempelajari konsep dasar dan lanjutan dalam pengembangan perangkat lunak, algoritma, struktur data,
+                serta penerapan teknologi web modern.
+              </p>
+              <div class="timeline-tags">
+                <span class="tag">Algoritma & Struktur Data</span>
+                <span class="tag">Web Engineering</span>
+                <span class="tag">Database System</span>
+              </div>
+            </div>
           </div>
-          <div class="modal-description-box">
-            <h4>Tentang Proyek</h4>
-            <p id="modal-description">
-              Deskripsi lengkap proyek akan dimuat di sini.
-            </p>
+
+          <!-- Education Item 2 -->
+          <div class="timeline-item timeline-right">
+            <div class="timeline-dot">
+              <i class="fa-solid fa-certificate"></i>
+            </div>
+            <div class="timeline-content cosmic-card">
+              <div class="timeline-badge">2019 - 2019</div>
+              <h3 class="timeline-title">
+                Program Sertifikasi & Bootcamp Web Development
+              </h3>
+              <h4 class="timeline-institution">
+                Platform Pembelajaran Digital (Dicoding / FreeCodeCamp /
+                Udemy)
+              </h4>
+              <p class="timeline-description">
+                Menyelesaikan kurikulum intensif pengembangan web: Belajar
+                Dasar Pemrograman Web, Fundamental Front-End Web Development,
+                JavaScript.
+              </p>
+              <div class="timeline-tags">
+                <span class="tag">Front-End</span>
+                <span class="tag">Responsive Design</span>
+              </div>
+            </div>
           </div>
-          <div class="modal-features-box">
-            <h4>Fitur Unggulan</h4>
-            <ul id="modal-features" class="modal-features-list">
-              <!-- Dynamic Features -->
-            </ul>
-          </div>
-          <div class="modal-tech-box">
-            <h4>Teknologi Digunakan</h4>
-            <div id="modal-tech-tags" class="modal-tech-tags">
-              <!-- Dynamic Tags -->
+
+          <!-- Education Item 3 -->
+          <div class="timeline-item timeline-left">
+            <div class="timeline-dot">
+              <i class="fa-solid fa-school"></i>
+            </div>
+            <div class="timeline-content cosmic-card">
+              <div class="timeline-badge">2013 - 2016</div>
+              <h3 class="timeline-title">
+                Sekolah Menengah Kejuruan (SMK)
+              </h3>
+              <h4 class="timeline-institution">
+                Jurusan Teknik Kendaraan Ringan (TKR), SMK TI PUI Kota Cirebon
+              </h4>
+              <p class="timeline-description">
+                Mempelajari dasar-dasar elektronika, mekanika kendaraan roda 2 dan roda 4, serta pengenalan sistem
+                otomotif modern berbasis komputer.
+              </p>
+              <div class="timeline-tags">
+                <span class="tag">Mekanikal</span>
+                <span class="tag">Dasar Komputasi</span>
+              </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <a
-            href="#kontak"
-            class="btn btn-secondary btn-sm"
-            id="modal-contact-link"
-            >Diskusi Proyek Ini</a
-          >
-          <button
-            class="btn btn-primary btn-sm btn-orange-glow"
-            id="modal-done-btn"
-          >
-            Tutup
-          </button>
+      </div>
+    </section>
+
+    <!-- ==================== PENGALAMAN SECTION ==================== -->
+    <!-- cari di notepad -->
+
+    <!-- ==================== KEAHLIAN (TECH STACK & SKILLS) ==================== -->
+    <section id="keahlian" class="section skills-section">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header text-center">
+          <span class="section-tag">
+            <i class="fa-solid fa-microchip"></i> Senjata & Keahlian
+          </span>
+          <h2 class="section-title">
+            Tech <span class="text-orange-glow">Stack Orbit</span>
+          </h2>
+          <div class="section-line"></div>
+          <p class="section-subtitle">
+            Kumpulan teknologi, pustaka, dan perangkat yang saya gunakan untuk
+            mengeksekusi visi digital.
+          </p>
+        </div>
+
+        <div class="skills-category-grid">
+          <!-- Skill Category 1: Front-End Tech -->
+          <div class="skill-category-card cosmic-card">
+            <div class="cat-header">
+              <i class="fa-solid fa-palette cat-icon"></i>
+              <h3>Front-End Universe</h3>
+            </div>
+            <div class="skill-items-list">
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-brands fa-html5 text-orange"></i> HTML5 &
+                    Semantik</span>
+                  <span class="skill-percent">25%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 25%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-brands fa-css3-alt text-orange"></i> CSS3 &
+                    Animasi Modern</span>
+                  <span class="skill-percent">35%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 35%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-brands fa-js text-orange"></i> JavaScript
+                    (ES6+)</span>
+                  <span class="skill-percent">15%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 15%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-brands fa-react text-orange"></i>
+                    React.js</span>
+                  <span class="skill-percent">5%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 5%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-solid fa-wind text-orange"></i> Tailwind
+                    CSS</span>
+                  <span class="skill-percent">5%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 5%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill Category 2: Backend & Tools -->
+          <div class="skill-category-card cosmic-card">
+            <div class="cat-header">
+              <i class="fa-solid fa-server cat-icon"></i>
+              <h3>Backend & Environment</h3>
+            </div>
+            <div class="skill-items-list">
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-brands fa-node-js text-orange"></i> Node.js
+                    & Express Dasar</span>
+                  <span class="skill-percent">5%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 5%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-solid fa-database text-orange"></i> MySQL /
+                    MongoDB Dasar</span>
+                  <span class="skill-percent">5%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 5%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-solid fa-network-wired text-orange"></i>
+                    RESTful API Integration</span>
+                  <span class="skill-percent">5%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 5%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-brands fa-git-alt text-orange"></i> Git &
+                    GitHub Version Control</span>
+                  <span class="skill-percent">5%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 5%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-solid fa-terminal text-orange"></i> CLI &
+                    Automation</span>
+                  <span class="skill-percent">5%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 5%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill Category 3: Creative & UI/UX -->
+          <div class="skill-category-card cosmic-card">
+            <div class="cat-header">
+              <i class="fa-solid fa-wand-magic-sparkles cat-icon"></i>
+              <h3>Kreativitas & Konsep</h3>
+            </div>
+            <div class="skill-items-list">
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-brands fa-figma text-orange"></i> Figma
+                    UI/UX Slicing</span>
+                  <span class="skill-percent">5%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 5%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-solid fa-mobile-screen text-orange"></i>
+                    Responsive Mobile-First</span>
+                  <span class="skill-percent">5%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 5%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-solid fa-sparkles text-orange"></i> Canvas &
+                    Physics Animations</span>
+                  <span class="skill-percent">5%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 5%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-solid fa-gauge-high text-orange"></i> Web
+                    Performance & SEO</span>
+                  <span class="skill-percent">15%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 15%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-top">
+                  <span class="skill-name"><i class="fa-solid fa-bug text-orange"></i> Problem
+                    Solving & Debugging</span>
+                  <span class="skill-percent">5%</span>
+                </div>
+                <div class="skill-progress-bar">
+                  <div class="skill-progress-fill" style="width: 5%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PORTOFOLIO PROYEK SECTION ==================== -->
+    <!-- cari di notepad -->
+
+    <!-- ==================== KONTAK SECTION ==================== -->
+    <section id="kontak" class="section contact-section">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header text-center">
+          <span class="section-tag">
+            <i class="fa-solid fa-satellite-dish"></i> Kanal Transmisi
+          </span>
+          <h2 class="section-title">
+            Kontak <span class="text-orange-glow">Saya</span>
+          </h2>
+          <div class="section-line"></div>
+          <p class="section-subtitle">
+            Punya ide proyek, tawaran kolaborasi, atau sekadar ingin menyapa?
+            Sinyal Anda akan selalu saya sambut.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Col 1: Contact Info & Socials -->
+          <div class="contact-info-col">
+            <div class="contact-info-card cosmic-card">
+              <h3 class="contact-card-title">
+                Mari Terhubung di Galaksi Ini
+              </h3>
+              <p class="contact-card-p">
+                Saya selalu antusias menyambut peluang baru, baik proyek
+                freelance, kerjasama tim, maupun diskusi seputar pengembangan
+                teknologi web.
+              </p>
+
+              <div class="contact-channels-list">
+                <!-- Email Item -->
+                <div class="contact-channel-item">
+                  <div class="channel-icon">
+                    <i class="fa-solid fa-envelope"></i>
+                  </div>
+                  <div class="channel-content">
+                    <span class="channel-name">Surel / Email</span>
+                    <a href="mailto:iarpan95@gmail.com" class="channel-value" id="email-link">iarpan95@gmail.com</a>
+                  </div>
+                  <button class="copy-btn" id="copy-email-btn" title="Salin Email">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+
+                <!-- WhatsApp Item -->
+                <div class="contact-channel-item">
+                  <div class="channel-icon">
+                    <i class="fa-brands fa-whatsapp"></i>
+                  </div>
+                  <div class="channel-content">
+                    <span class="channel-name">WhatsApp</span>
+                    <a href="https://wa.me/6281314649850" target="_blank" rel="noopener noreferrer"
+                      class="channel-value">+62 813-1464-9850</a>
+                  </div>
+                </div>
+
+                <!-- Location Item -->
+                <div class="contact-channel-item">
+                  <div class="channel-icon">
+                    <i class="fa-solid fa-location-crosshairs"></i>
+                  </div>
+                  <div class="channel-content">
+                    <span class="channel-name">Lokasi</span>
+                    <span class="channel-value">Kalideres, Jakarta Barat</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Social Media Orbit Icons -->
+              <div class="social-orbit-container">
+                <span class="social-title">Jaringan Sosial:</span>
+                <div class="social-icons-row">
+                  <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link"
+                    title="GitHub">
+                    <i class="fa-brands fa-github"></i>
+                  </a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link"
+                    title="LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                  </a>
+                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link"
+                    title="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                  </a>
+                  <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="social-link" title="Telegram">
+                    <i class="fa-brands fa-telegram"></i>
+                  </a>
+                  <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="social-link"
+                    title="Discord">
+                    <i class="fa-brands fa-discord"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Col 2: Interactive Contact Form -->
+          <div class="contact-form-col">
+            <div class="form-card cosmic-card">
+              <h3 class="form-title">
+                <i class="fa-solid fa-paper-plane text-orange"></i> Kirim
+                Transmisi Pesan
+              </h3>
+
+              <form id="contact-form" class="cosmic-form" novalidate>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="sender-name">Nama Lengkap *</label>
+                    <div class="input-wrapper">
+                      <i class="fa-solid fa-user input-icon"></i>
+                      <input type="text" id="sender-name" name="name" placeholder="cth. Budi Santoso" required />
+                    </div>
+                    <span class="form-error" id="name-error"></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="sender-email">Alamat Email *</label>
+                    <div class="input-wrapper">
+                      <i class="fa-solid fa-at input-icon"></i>
+                      <input type="email" id="sender-email" name="email" placeholder="nama@domain.com" required />
+                    </div>
+                    <span class="form-error" id="email-error"></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="sender-subject">Subjek / Topik *</label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-heading input-icon"></i>
+                    <input type="text" id="sender-subject" name="subject" placeholder="cth. Penawaran Proyek Website"
+                      required />
+                  </div>
+                  <span class="form-error" id="subject-error"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="sender-message">Isi Pesan Transmisi *</label>
+                  <div class="input-wrapper textarea-wrapper">
+                    <i class="fa-solid fa-comment-dots input-icon"></i>
+                    <textarea id="sender-message" name="message" rows="5"
+                      placeholder="Tuliskan pesan, rincian proyek, atau ide Anda di sini..." required></textarea>
+                  </div>
+                  <span class="form-error" id="message-error"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-orange-glow btn-submit" id="submit-btn">
+                  <i class="fa-solid fa-rocket"></i>
+                  <span>Luncurkan Pesan</span>
+                </button>
+
+                <div class="form-status" id="form-status" aria-live="polite"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="cosmic-footer">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="brand-singularity"></span>
+          <span class="brand-text">IBNU<span class="brand-dot"> </span> ARPAN</span>
+        </div>
+        <p class="footer-tagline">
+          Waktu adalah sumber daya yang paling berharga. Mari kita gunakan dengan bijak untuk menciptakan sesuatu yang
+          luar biasa.
+        </p>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <div class="footer-bottom">
+        <p class="copyright-text">
+          &copy; <span id="current-year">2026</span> <strong>Ibnu arpan</strong>.
+          Seluruh hak cipta dilindungi. Terus menjelajahi semesta kode.
+        </p>
+        <div class="footer-links">
+          <a href="#beranda">Beranda</a>
+          <a href="#tentang">Tentang</a>
+          <a href="#proyek">Proyek</a>
+          <a href="#kontak">Kontak</a>
         </div>
       </div>
     </div>
+  </footer>
 
-    <!-- Notification Toast Container -->
-    <div class="toast-container" id="toast-container"></div>
+  <!-- Floating Scroll To Top Button -->
+  <button class="back-to-top-btn" id="back-to-top" title="Kembali ke Puncak Singularity">
+    <i class="fa-solid fa-rocket"></i>
+  </button>
 
-    <!-- Main JavaScript Logic -->
-    <script src="script.js"></script>
-  </body>
+  <!-- Project Detail Modal Popup -->
+  <div class="project-modal-backdrop" id="project-modal" aria-hidden="true">
+    <div class="project-modal-content cosmic-card" role="dialog" aria-modal="true">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Tutup Detail Proyek">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="modal-header">
+        <div class="modal-badge" id="modal-badge">Kategori</div>
+        <h3 class="modal-title" id="modal-title">Judul Proyek</h3>
+      </div>
+      <div class="modal-body">
+        <div class="modal-icon-banner" id="modal-icon-banner">
+          <i class="fa-solid fa-laptop-code"></i>
+        </div>
+        <div class="modal-description-box">
+          <h4>Tentang Proyek</h4>
+          <p id="modal-description">
+            Deskripsi lengkap proyek akan dimuat di sini.
+          </p>
+        </div>
+        <div class="modal-features-box">
+          <h4>Fitur Unggulan</h4>
+          <ul id="modal-features" class="modal-features-list">
+            <!-- Dynamic Features -->
+          </ul>
+        </div>
+        <div class="modal-tech-box">
+          <h4>Teknologi Digunakan</h4>
+          <div id="modal-tech-tags" class="modal-tech-tags">
+            <!-- Dynamic Tags -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#kontak" class="btn btn-secondary btn-sm" id="modal-contact-link">Diskusi Proyek Ini</a>
+        <button class="btn btn-primary btn-sm btn-orange-glow" id="modal-done-btn">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Main JavaScript Logic -->
+  <script src="script.js"></script>
+</body>
+
 </html>

@@ -96,13 +96,16 @@ body {
 ::-webkit-scrollbar {
   width: 9px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--bg-singularity);
 }
+
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, var(--orange-glow), var(--purple-space));
   border-radius: var(--radius-full);
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--orange-bright);
 }
@@ -115,7 +118,8 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  pointer-events: auto; /* Allows mouse gravity interaction */
+  pointer-events: auto;
+  /* Allows mouse gravity interaction */
   background: radial-gradient(
     circle at 50% 50%,
     #0e051c 0%,
@@ -137,9 +141,11 @@ body {
 .text-center {
   text-align: center;
 }
+
 .text-orange {
   color: var(--orange-bright);
 }
+
 .text-orange-glow {
   color: var(--orange-bright);
   text-shadow: 0 0 16px rgba(255, 128, 0, 0.7);
@@ -256,6 +262,85 @@ body {
     0 0 25px rgba(255, 119, 0, 0.25);
 }
 
+/* Canvas tetap di lapisan paling belakang */
+#cosmic-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Kontainer utama Hero */
+.hero-section {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100svh;
+  width: 100%;
+  padding: clamp(4.5rem, 8vh, 6rem) 1rem clamp(1rem, 2.5vh, 2rem) 1rem;
+  box-sizing: border-box;
+}
+
+/* Bagian Atas (Teks "Seorang ...") */
+.hero-typewriter-box {
+  width: 100%;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Ruang Terbuka Khusus Blackhole di Tengah */
+.blackhole-stage {
+  width: 100%;
+  flex: 1; /* Otomatis mengambil sisa ruang kosong di tengah layar */
+  min-height: clamp(
+    160px,
+    26vh,
+    300px
+  ); /* Tinggi minimal aman agar blackhole tidak terjepit */
+  pointer-events: none;
+}
+
+/* Bagian Bawah (Tersusun rapat) */
+.hero-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex-shrink: 0;
+  gap: clamp(0.55rem, 1.5vh, 1rem);
+}
+
+/* Reset margin elemen bawah agar jarak dikontrol penuh oleh .hero-bottom */
+.hero-badge-wrapper,
+.hero-actions,
+.hero-tech-quick,
+.scroll-indicator {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Penyesuaian khusus layar pendek (seperti 360 x 640px) */
+@media (max-height: 660px) {
+  .hero-section {
+    padding-top: 4rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .blackhole-stage {
+    min-height: 140px;
+  }
+
+  .hero-bottom {
+    gap: 0.45rem;
+  }
+}
+
 /* ==========================================================================
    FLOATING NAVBAR (MELAYANG DI TENGAH ATAS DENGAN EFEK OREN MENYALA)
    ========================================================================== */
@@ -267,7 +352,8 @@ body {
   display: flex;
   justify-content: center;
   z-index: 1000;
-  pointer-events: none; /* Let background handle clicks outside navbar */
+  pointer-events: none;
+  /* Let background handle clicks outside navbar */
   padding: 0 1rem;
 }
 
@@ -303,6 +389,7 @@ body {
       inset 0 0 10px rgba(255, 140, 0, 0.18);
     border-color: rgba(255, 136, 0, 0.65);
   }
+
   50% {
     box-shadow:
       0 0 24px rgba(255, 130, 10, 0.75),
@@ -310,6 +397,7 @@ body {
       inset 0 0 18px rgba(255, 160, 20, 0.35);
     border-color: rgba(255, 180, 60, 0.95);
   }
+
   100% {
     box-shadow:
       0 0 18px rgba(255, 119, 0, 0.55),
@@ -346,6 +434,7 @@ body {
   0% {
     background-position: 0% 50%;
   }
+
   100% {
     background-position: 200% 50%;
   }
@@ -382,10 +471,12 @@ body {
   0% {
     transform: rotate(0deg) scale(1);
   }
+
   50% {
     transform: rotate(180deg) scale(1.15);
     box-shadow: 0 0 14px var(--orange-bright);
   }
+
   100% {
     transform: rotate(360deg) scale(1);
   }
@@ -504,9 +595,11 @@ body {
   transform: translateY(7px) rotate(45deg);
   background: var(--orange-bright);
 }
+
 .nav-mobile-toggle.active .bar:nth-child(2) {
   opacity: 0;
 }
+
 .nav-mobile-toggle.active .bar:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
   background: var(--orange-bright);
@@ -655,6 +748,7 @@ body {
   color: var(--text-muted);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .btn-ghost:hover {
   color: #fff;
   border-color: rgba(255, 255, 255, 0.25);
@@ -707,6 +801,7 @@ body {
     transform: translate(-50%, -50%) scale(0.9);
     opacity: 0.7;
   }
+
   100% {
     transform: translate(-50%, -50%) scale(1.15);
     opacity: 1;
@@ -722,7 +817,14 @@ body {
 
 /* Cosmic Status Badge */
 .hero-badge-wrapper {
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0 auto clamp(0.75rem, 2vh, 1.1rem) auto !important; /* Jarak bawah rapat ke tombol */
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .animate-float {
@@ -734,6 +836,7 @@ body {
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-8px);
   }
@@ -769,6 +872,7 @@ body {
     transform: scale(0.85);
     opacity: 0.7;
   }
+
   50% {
     transform: scale(1.3);
     opacity: 1;
@@ -818,6 +922,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
   font-family: var(--font-heading);
   font-size: clamp(1.3rem, 3.2vw, 2.2rem);
   font-weight: 600;
@@ -849,6 +955,7 @@ body {
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
   }
@@ -869,22 +976,42 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 3.5rem;
+  gap: clamp(0.6rem, 2vw, 1rem);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto clamp(0.85rem, 2.2vh, 1.25rem) auto !important; /* Jarak bawah rapat ke tech tags */
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.hero-actions .btn {
+  padding: clamp(0.65rem, 1.8vw, 0.85rem) clamp(1.1rem, 3vw, 1.6rem);
+  font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+  white-space: nowrap;
 }
 
 /* Quick Tech Badges */
 .hero-tech-quick {
+  display: inline-flex; /* Menggunakan inline-flex agar lebar kotak pas mengikuti isi */
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.45rem, 1.5vw, 0.75rem);
+  padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
+  border-radius: var(--radius-full);
+  background: rgba(14, 7, 28, 0.5);
+  border: 1px solid rgba(255, 119, 0, 0.2);
+  margin: 0 auto clamp(1rem, 2.5vh, 1.5rem) auto !important; /* Jarak bawah ke indikator gulir */
+  max-width: calc(100% - 2rem); /* Mencegah menempel pinggir layar di HP */
+  box-sizing: border-box;
+}
+
+.tech-quick-tags {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-full);
-  background: rgba(14, 7, 28, 0.5);
-  border: 1px solid rgba(255, 119, 0, 0.2);
-  margin-bottom: 3rem;
+  gap: clamp(0.4rem, 1.2vw, 0.65rem);
 }
 
 .tech-quick-label {
@@ -892,12 +1019,6 @@ body {
   font-size: 0.85rem;
   color: var(--text-subtle);
   font-weight: 500;
-}
-
-.tech-quick-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 .orbit-tag {
@@ -925,16 +1046,21 @@ body {
 }
 
 /* Scroll Down Indicator */
+.scroll-indicator {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
 .scroll-indicator a {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-decoration: none;
   color: var(--text-subtle);
-  font-size: 0.82rem;
+  font-size: clamp(0.75rem, 2vw, 0.82rem);
   font-family: var(--font-code);
   letter-spacing: 1px;
-  gap: 0.5rem;
+  gap: 0.4rem;
   transition: color var(--transition-fast);
 }
 
@@ -968,10 +1094,12 @@ body {
     transform: translate(-50%, 0);
     opacity: 1;
   }
+
   80% {
     transform: translate(-50%, 14px);
     opacity: 0;
   }
+
   100% {
     transform: translate(-50%, 0);
     opacity: 0;
@@ -988,6 +1116,7 @@ body {
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(6px);
   }
@@ -1048,6 +1177,7 @@ body {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -1075,6 +1205,7 @@ body {
     transform: scale(0.92);
     opacity: 0.6;
   }
+
   100% {
     transform: scale(1.08);
     opacity: 0.9;
@@ -1112,6 +1243,7 @@ body {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -1137,11 +1269,13 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .body-2 {
   bottom: 20%;
   right: 0;
   transform: translate(50%, 50%);
 }
+
 .body-3 {
   bottom: 10%;
   left: 10%;
@@ -1800,18 +1934,23 @@ body {
 .cosmic-bg-1 {
   background: radial-gradient(circle at 50% 50%, #2f104f, #090314);
 }
+
 .cosmic-bg-2 {
   background: radial-gradient(circle at 50% 50%, #4a1900, #090314);
 }
+
 .cosmic-bg-3 {
   background: radial-gradient(circle at 50% 50%, #0d2b45, #090314);
 }
+
 .cosmic-bg-4 {
   background: radial-gradient(circle at 50% 50%, #1d3557, #090314);
 }
+
 .cosmic-bg-5 {
   background: radial-gradient(circle at 50% 50%, #3d0c35, #090314);
 }
+
 .cosmic-bg-6 {
   background: radial-gradient(circle at 50% 50%, #381200, #090314);
 }
@@ -2528,6 +2667,7 @@ body {
     transform: translateY(20px);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
@@ -2543,29 +2683,37 @@ body {
   .nav-menu {
     gap: 0.2rem;
   }
+
   .nav-link {
     padding: 0.45rem 0.7rem;
     font-size: 0.85rem;
   }
+
   .about-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
+
   .about-avatar-column {
     margin-bottom: 1rem;
   }
+
   .statistics-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .skills-category-grid {
     grid-template-columns: 1fr;
   }
+
   .projects-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .experience-grid {
     grid-template-columns: 1fr;
   }
+
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
@@ -2578,9 +2726,11 @@ body {
   .nav-cta-btn {
     display: none;
   }
+
   .nav-mobile-toggle {
     display: flex;
   }
+
   .floating-navbar {
     width: 90%;
     justify-content: space-between;
@@ -2591,6 +2741,7 @@ body {
   .timeline-center-line {
     left: 24px;
   }
+
   .timeline-item {
     width: 100%;
     padding-left: 4.5rem;
@@ -2598,10 +2749,12 @@ body {
     text-align: left;
     left: 0 !important;
   }
+
   .timeline-dot {
     left: 2px !important;
     right: auto !important;
   }
+
   .timeline-left .timeline-tags {
     justify-content: flex-start;
   }
@@ -2609,9 +2762,11 @@ body {
   .projects-grid {
     grid-template-columns: 1fr;
   }
+
   .form-row {
     grid-template-columns: 1fr;
   }
+
   .bio-details-grid {
     grid-template-columns: 1fr;
   }
@@ -2622,38 +2777,55 @@ body {
   .hero-big-name {
     font-size: 3.2rem;
   }
+
   .avatar-cosmic-wrapper {
     width: 260px;
     height: 260px;
   }
+
   .avatar-card {
     width: 220px;
     height: 220px;
   }
+
   .orbit-ring-1,
   .orbit-ring-2,
   .orbit-ring-3 {
-    display: none; /* Reduce visual clutter on tiny screens */
+    display: none;
+    /* Reduce visual clutter on tiny screens */
   }
+
   .about-card,
   .form-card,
   .contact-info-card {
     padding: 1.5rem;
   }
+
   .statistics-grid {
     grid-template-columns: 1fr;
   }
+
   .hero-actions {
-    flex-direction: column;
-    width: 100%;
+    flex-direction: row; /* Tetap sejajar 2 tombol */
+    gap: 0.5rem;
   }
+
   .hero-actions .btn {
-    width: 100%;
+    flex: 1; /* Lebar tombol seimbang kiri & kanan */
+    justify-content: center;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.82rem;
   }
+
+  .hero-tech-quick {
+    padding: 0.5rem 0.85rem;
+  }
+
   .cosmic-quick-controls {
     bottom: 1.2rem;
     left: 1.2rem;
   }
+
   .back-to-top-btn {
     bottom: 1.2rem;
     right: 1.2rem;
@@ -2763,3 +2935,442 @@ video {
     display: none !important;
   }
 }
+
+/* ==== Added Responsive Enhancements ==== */
+
+/* Large screens (extra wide) */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1400px;
+  }
+
+  .statistics-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .skills-category-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+  }
+
+  .experience-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablet and small laptop (≤1024px) – align padding and stack hero actions */
+@media (max-width: 1024px) {
+  .container,
+  .section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+}
+
+/* Mobile & small tablets (≤860px) – hide desktop navbar, show mobile toggle */
+@media (max-width: 860px) {
+  .nav-menu,
+  .nav-cta-btn {
+    display: none;
+  }
+
+  .nav-mobile-toggle {
+    display: flex;
+  }
+
+  .floating-navbar {
+    width: 95%;
+  }
+}
+
+/* Small phones (≤480px) – further tighten spacing and font sizes */
+@media (max-width: 480px) {
+  .hero-big-name {
+    font-size: 2.5rem;
+  }
+
+  .avatar-cosmic-wrapper {
+    width: 260px;
+    height: 260px;
+  }
+
+  .avatar-card {
+    width: 220px;
+    height: 220px;
+  }
+
+  .orbit-ring-1,
+  .orbit-ring-2,
+  .orbit-ring-3 {
+    display: none;
+  }
+
+  .statistics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-actions {
+    flex-direction: row; /* Tetap sejajar 2 tombol */
+    gap: 0.5rem;
+  }
+
+  .hero-actions .btn {
+    flex: 1; /* Lebar tombol seimbang kiri & kanan */
+    justify-content: center;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.82rem;
+  }
+
+  .hero-tech-quick {
+    padding: 0.5rem 0.85rem;
+  }
+
+  .cosmic-quick-controls,
+  .back-to-top-btn {
+    bottom: 1.2rem;
+  }
+}
+
+/* Penyesuaian khusus untuk device 360 x 780px */
+@media (min-width: 360px) {
+  .hero-big-name {
+    font-size: 2rem; /* Diturunkan dari 2.5rem (40px -> 32px) agar tidak pecah ke terlalu banyak baris di lebar 360px */
+    line-height: 1.15;
+  }
+
+  .hero-badge-wrapper,
+  .hero-actions {
+    padding: 0 0.75rem;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .avatar-cosmic-wrapper {
+    width: 240px; /* Disesuaikan agar ada ruang aman kiri-kanan di lebar 360px */
+    height: 240px;
+    margin-bottom: 1.25rem; /* Memanfaatkan tinggi 780px agar jarak vertikal lebih lega */
+  }
+
+  .avatar-card {
+    width: 205px; /* Proporsional mengikuti wrapper 240px */
+    height: 225px;
+  }
+
+  .statistics-grid {
+    gap: 0.85rem; /* Jarak antar kartu statistik sedikit direnggangkan untuk tinggi 780px */
+  }
+
+  .hero-actions {
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .hero-actions .btn {
+    font-size: 0.78rem;
+    padding: 0.6rem 0.5rem;
+  }
+
+  .cosmic-quick-controls,
+  .back-to-top-btn {
+    bottom: 1.5rem; /* Jarak aman dari gesture bar navigasi bawah Android */
+  }
+
+  /* --- Bagian 1: Hero Tech Quick Tags --- */
+  .hero-tech-quick {
+    padding: 0.45rem 0.75rem;
+    margin-bottom: 0.85rem !important;
+  }
+
+  .tech-quick-tags {
+    gap: 0.35rem;
+  }
+
+  .tech-quick-tags .orbit-tag {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.5rem;
+  }
+  /* --- Bagian 2 & 3: Contact Grid Wrapper --- */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Paksa jadi 1 kolom penuh */
+    gap: 1.25rem;
+    width: 100%;
+  }
+
+  .contact-info-card.cosmic-card,
+  .form-card.cosmic-card {
+    padding: 1.25rem 1rem; /* Kurangi padding samping agar area isi lebih luas */
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* --- Bagian 2: Contact Info & Socials --- */
+  .contact-card-title,
+  .form-title {
+    font-size: 1.2rem;
+    line-height: 1.3;
+    margin-bottom: 0.65rem;
+  }
+
+  .contact-card-p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .contact-channels-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .contact-channel-item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem;
+  }
+
+  .channel-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+    flex-shrink: 0; /* Mencegah ikon gepeng saat teks panjang */
+  }
+
+  .channel-content {
+    min-width: 0; /* Wajib agar text-overflow / word-break berfungsi di dalam flex */
+    flex: 1;
+  }
+
+  .channel-name {
+    display: block;
+    font-size: 0.75rem;
+  }
+
+  .channel-value {
+    display: block;
+    font-size: 0.85rem;
+    word-break: break-all; /* Mencegah email panjang keluar batas layar 360px */
+  }
+
+  .copy-btn {
+    padding: 0.4rem 0.55rem;
+    flex-shrink: 0;
+  }
+
+  .social-orbit-container {
+    margin-top: 1.25rem;
+  }
+
+  .social-icons-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 0.5rem;
+  }
+
+  .social-link {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+
+  /* --- Bagian 3: Contact Form --- */
+  .cosmic-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr; /* Nama & Email ditumpuk vertikal di lebar 360px */
+    gap: 0.85rem;
+  }
+
+  .cosmic-form .form-group {
+    margin-bottom: 0.85rem;
+  }
+
+  .cosmic-form label {
+    font-size: 0.82rem;
+    margin-bottom: 0.35rem;
+    display: block;
+  }
+
+  .input-wrapper input,
+  .input-wrapper textarea {
+    width: 100%;
+    font-size: 0.875rem;
+    padding: 0.65rem 0.75rem 0.65rem 2.25rem; /* Ruang untuk ikon kiri */
+    box-sizing: border-box;
+  }
+
+  .textarea-wrapper textarea {
+    min-height: 110px;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/*3.Device 360 x 640px (Layar pendek/compact)*/
+@media (max-width: 360px) and (max-height: 660px) {
+  .hero-big-name {
+    font-size: 1.65rem; /* ~26px agar tidak memakan ruang vertikal terlalu banyak */
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+
+  .hero-badge-wrapper {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .avatar-cosmic-wrapper {
+    width: 190px; /* Dikecilkan dari 240px agar muat dalam tinggi 640px */
+    height: 190px;
+    margin-bottom: 0.75rem;
+  }
+
+  .avatar-card {
+    width: 160px; /* Proporsional mengikuti wrapper 190px */
+    height: 160px;
+  }
+
+  .statistics-grid {
+    gap: 0.5rem; /* Jarak antar elemen dirapatkan */
+  }
+
+  .hero-actions {
+    margin-bottom: 0.6rem !important;
+  }
+
+  .hero-actions .btn {
+    padding: 0.6rem 0.9rem; /* Tombol sedikit lebih tipis */
+    font-size: 0.875rem;
+  }
+
+  .cosmic-quick-controls,
+  .back-to-top-btn {
+    bottom: 1rem;
+  }
+
+  /* --- Bagian 1: Hero Tech Quick Tags --- */
+  .hero-tech-quick {
+    margin-bottom: 0.65rem !important;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .tech-quick-tags {
+    gap: 0.35rem;
+  }
+
+  .tech-quick-tags .orbit-tag {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.55rem;
+  }
+
+  .scroll-indicator a {
+    font-size: 0.72rem;
+    gap: 0.25rem;
+  }
+
+  /* --- Bagian 2 & 3: Contact Cards --- */
+  .contact-grid {
+    gap: 0.9rem;
+  }
+
+  .contact-info-card.cosmic-card,
+  .form-card.cosmic-card {
+    padding: 1rem 0.85rem;
+  }
+
+  .contact-card-title,
+  .form-title {
+    font-size: 1.08rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .contact-card-p {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+  }
+
+  /* --- Bagian 2: Contact Channels lebih ringkas --- */
+  .contact-channels-list {
+    gap: 0.5rem;
+  }
+
+  .contact-channel-item {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .channel-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+
+  .channel-value {
+    font-size: 0.8rem;
+  }
+
+  .social-orbit-container {
+    margin-top: 0.85rem;
+  }
+
+  .social-link {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+  }
+
+  /* --- Bagian 3: Form lebih padat agar tombol kirim cepat terlihat --- */
+  .cosmic-form .form-row,
+  .cosmic-form .form-group {
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .cosmic-form label {
+    font-size: 0.78rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .input-wrapper input,
+  .input-wrapper textarea {
+    padding: 0.55rem 0.65rem 0.55rem 2.1rem;
+    font-size: 0.82rem;
+  }
+
+  .textarea-wrapper textarea {
+    min-height: 75px; /* Menghemat ruang vertikal pada layar 640px */
+  }
+
+  .btn-submit {
+    padding: 0.65rem 0.9rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Ensure media (images, video, svg) scale fluidly */
+img,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* End of added responsive rules */

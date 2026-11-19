@@ -1,6 +1,5 @@
 /**
- * IBNU PERSONAL PORTFOLIO - GALAXY & BLACK HOLE EDITION
- * Interactive Logic, Physics Engine & UI Controls
+ * IBNU PERSONAL PORTFOLIO - Tema Black Hole Galaxy oren
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -366,7 +365,6 @@ document.addEventListener("DOMContentLoaded", () => {
     outerHaloGrad.addColorStop(0.25, "rgba(255, 70, 0, 0.25)");
     outerHaloGrad.addColorStop(0.65, "rgba(120, 20, 180, 0.12)");
     outerHaloGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
-
     ctx.fillStyle = outerHaloGrad;
     ctx.beginPath();
     ctx.arc(centerX, centerY, haloRadius, 0, Math.PI * 2);
@@ -1008,30 +1006,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ==========================================================================
-     7. COSMIC AUDIO AMBIENT SYNTHESIZER (WEB AUDIO API)
+     7. COSMIC AUDIO AMBIENT (MP3 BACKSOUND & SYNTHESIZER FALLBACK)
      ========================================================================== */
   const soundToggleBtn = document.getElementById("sound-toggle-btn");
   const soundIcon = document.getElementById("sound-icon");
+  const cosmicAudio = document.getElementById("bg-cosmic-audio");
   let audioCtx = null;
   let isAudioPlaying = false;
   let droneNodes = null;
+
+  if (cosmicAudio) {
+    cosmicAudio.volume = 0.35;
+  }
 
   function initCosmicAudio() {
     try {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       audioCtx = new AudioContext();
 
-      // Master Gain
       const masterGain = audioCtx.createGain();
       masterGain.gain.setValueAtTime(0.08, audioCtx.currentTime);
       masterGain.connect(audioCtx.destination);
 
-      // Low frequency sub-drone (55Hz - A1 fundamental pitch)
       const subOsc = audioCtx.createOscillator();
       subOsc.type = "sine";
       subOsc.frequency.setValueAtTime(55, audioCtx.currentTime);
 
-      // Warm harmonic (110Hz - A2)
       const harmOsc = audioCtx.createOscillator();
       harmOsc.type = "triangle";
       harmOsc.frequency.setValueAtTime(110, audioCtx.currentTime);
@@ -1041,14 +1041,12 @@ document.addEventListener("DOMContentLoaded", () => {
       harmOsc.connect(harmGain);
       harmGain.connect(masterGain);
 
-      // LFO for slow cosmic breathing
       const lfo = audioCtx.createOscillator();
-      lfo.frequency.setValueAtTime(0.12, audioCtx.currentTime); // ~8 sec wave
+      lfo.frequency.setValueAtTime(0.12, audioCtx.currentTime);
       const lfoGain = audioCtx.createGain();
       lfoGain.gain.setValueAtTime(15, audioCtx.currentTime);
       lfo.connect(lfoGain);
 
-      // Lowpass resonant filter
       const filter = audioCtx.createBiquadFilter();
       filter.type = "lowpass";
       filter.frequency.setValueAtTime(160, audioCtx.currentTime);
@@ -1068,35 +1066,83 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (soundToggleBtn) {
-    soundToggleBtn.addEventListener("click", () => {
-      if (!audioCtx) {
-        initCosmicAudio();
-        isAudioPlaying = true;
-        soundIcon.className = "fa-solid fa-volume-high";
-        soundToggleBtn.style.color = "#fff";
-        soundToggleBtn.style.background = "var(--orange-bright)";
-        showToast("Suasana Kosmik Aktif 🪐 (Web Audio Synth)");
-        return;
-      }
+  function toggleWebAudioSynth() {
+    if (!audioCtx) {
+      initCosmicAudio();
+      isAudioPlaying = true;
+      soundIcon.className = "fa-solid fa-volume-high";
+      soundToggleBtn.style.color = "#fff";
+      soundToggleBtn.style.background = "var(--orange-bright)";
+      showToast("Suasana Kosmik Aktif 🪐 (Web Audio Synth)");
+      return;
+    }
 
-      if (audioCtx.state === "suspended") {
-        audioCtx.resume();
-        isAudioPlaying = true;
-        soundIcon.className = "fa-solid fa-volume-high";
-        soundToggleBtn.style.background = "var(--orange-bright)";
-        soundToggleBtn.style.color = "#030008";
-        showToast("Audio Suasana Kosmik Dinyalakan");
-      } else if (audioCtx.state === "running") {
-        audioCtx.suspend();
-        isAudioPlaying = false;
-        soundIcon.className = "fa-solid fa-volume-xmark";
-        soundToggleBtn.style.background = "rgba(14, 6, 28, 0.8)";
-        soundToggleBtn.style.color = "var(--orange-bright)";
-        showToast("Audio Suasana Kosmik Dimatikan");
+    if (audioCtx.state === "suspended") {
+      audioCtx.resume();
+      isAudioPlaying = true;
+      soundIcon.className = "fa-solid fa-volume-high";
+      soundToggleBtn.style.background = "var(--orange-bright)";
+      soundToggleBtn.style.color = "#030008";
+      showToast("Audio Suasana Kosmik Dinyalakan");
+    } else if (audioCtx.state === "running") {
+      audioCtx.suspend();
+      isAudioPlaying = false;
+      soundIcon.className = "fa-solid fa-volume-xmark";
+      soundToggleBtn.style.background = "rgba(14, 6, 28, 0.8)";
+      soundToggleBtn.style.color = "var(--orange-bright)";
+      showToast("Audio Suasana Kosmik Dimatikan");
+    }
+  }
+
+  if (soundToggleBtn) {
+    soundToggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (cosmicAudio) {
+        if (isAudioPlaying) {
+          cosmicAudio.pause();
+          isAudioPlaying = false;
+          soundIcon.className = "fa-solid fa-volume-xmark";
+          soundToggleBtn.style.background = "rgba(14, 6, 28, 0.8)";
+          soundToggleBtn.style.color = "var(--orange-bright)";
+          showToast("Backsound Kosmik Dijeda");
+        } else {
+          cosmicAudio
+            .play()
+            .then(() => {
+              isAudioPlaying = true;
+              soundIcon.className = "fa-solid fa-volume-high";
+              soundToggleBtn.style.background = "var(--orange-bright)";
+              soundToggleBtn.style.color = "#030008";
+              showToast("Backsound Kosmik Berjalan 🎵");
+            })
+            .catch(() => {
+              toggleWebAudioSynth();
+            });
+        }
+      } else {
+        toggleWebAudioSynth();
       }
     });
   }
+
+  // Opsional: Pertama kali user berinteraksi dengan halaman, siapkan audio
+  document.body.addEventListener(
+    "click",
+    () => {
+      if (!isAudioPlaying && cosmicAudio) {
+        cosmicAudio
+          .play()
+          .then(() => {
+            isAudioPlaying = true;
+            soundIcon.className = "fa-solid fa-volume-high";
+            soundToggleBtn.style.background = "var(--orange-bright)";
+            soundToggleBtn.style.color = "#030008";
+          })
+          .catch(() => {});
+      }
+    },
+    { once: true },
+  );
 
   /* ==========================================================================
      8. WARP SPEED MODE TOGGLE
@@ -1144,44 +1190,3 @@ document.addEventListener("DOMContentLoaded", () => {
     currentYearSpan.textContent = new Date().getFullYear();
   }
 });
-const cosmicAudio = document.getElementById("bg-cosmic-audio");
-const soundToggleBtn = document.getElementById("sound-toggle-btn");
-const soundIcon = document.getElementById("sound-icon");
-let isMusicPlaying = false;
-
-// Atur volume awal (30% agar nyaman didengar)
-cosmicAudio.volume = 0.3;
-
-// Fungsi klik pada tombol Kosmik Audio bawaan
-soundToggleBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  if (isMusicPlaying) {
-    cosmicAudio.pause();
-    soundIcon.className = "fa-solid fa-volume-xmark"; // Ikon mute
-    soundToggleBtn.classList.remove("active");
-    isMusicPlaying = false;
-  } else {
-    cosmicAudio.play();
-    soundIcon.className = "fa-solid fa-volume-high"; // Ikon suara aktif
-    soundToggleBtn.classList.add("active");
-    isMusicPlaying = true;
-  }
-});
-
-// Opsional: Otomatis menyala saat pengunjung mengklik area mana pun pertama kali
-document.body.addEventListener(
-  "click",
-  () => {
-    if (!isMusicPlaying) {
-      cosmicAudio
-        .play()
-        .then(() => {
-          soundIcon.className = "fa-solid fa-volume-high";
-          soundToggleBtn.classList.add("active");
-          isMusicPlaying = true;
-        })
-        .catch(() => {});
-    }
-  },
-  { once: true },
-);
